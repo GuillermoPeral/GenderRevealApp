@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Confirmación de Asistencia - Revelación de Género</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+
+<body>
+  <div class="bg-shape bg-shape-1"></div>
+  <div class="bg-shape bg-shape-2"></div>
+
+  <main class="container">
+    <header class="hero card" id="welcome">
+      <p class="kicker">Celebración de Bebé</p>
+      <h1>¡Estás invitado(a) a nuestra revelación de género!</h1>
+      <p>
+        Queremos vivir este momento contigo. Confirma si nos acompañas y déjanos tus
+        predicciones para divertirnos antes del gran día.
+      </p>
+      <div class="hero-actions">
+        <button id="rsvpNowBtn" class="btn btn-primary">Confirmar asistencia</button>
+        <button id="adminBtn" class="btn btn-soft">Ver panel</button>
+      </div>
+      <section class="countdown" aria-live="polite">
+        <h2>Cuenta regresiva para el gran momento</h2>
+        <p id="countdownText">Cargando cuenta regresiva...</p>
+      </section>
+    </header>
+
+    <section class="card" id="formSection">
+      <h2>Tu RSVP</h2>
+      <form id="rsvpForm">
+        <h3>1) Cuéntanos de tu asistencia</h3>
+        <div class="form-grid">
+          <label>
+            Nombre completo
+            <input type="text" name="fullName" placeholder="Ej. Ana Perez" required />
+          </label>
+
+          <label>
+            ¿Asistirás?
+            <select name="attendance" required>
+              <option value="">Selecciona una opción</option>
+              <option value="yes">Sí</option>
+              <option value="no">No</option>
+              <option value="maybe">Tal vez</option>
+            </select>
+          </label>
+
+          <label>
+            Número de invitados que asistirán contigo
+            <input type="number" name="guestsWithYou" min="0" max="20" value="0" required />
+          </label>
+
+          <label>
+            Correo electrónico (opcional)
+            <input type="email" name="email" />
+          </label>
+        </div>
+
+        <label>
+          Mensaje bonito para los papas (opcional)
+          <textarea name="message" rows="3" placeholder="Les queremos mucho, sera un dia hermoso."></textarea>
+        </label>
+
+        <h3>2) Tu prediccion del bebe</h3>
+        <div class="form-grid">
+          <label>
+            ¿Qué crees que será el bebé?
+            <select name="prediction" required>
+              <option value="">Selecciona una opción</option>
+              <option value="boy">Niño</option>
+              <option value="girl">Niña</option>
+            </select>
+          </label>
+
+          <label>
+            Predicción del peso del bebé (lb o kg)
+            <input type="text" name="weightGuess" placeholder="Ej. 3.3 kg" />
+          </label>
+
+          <label>
+            Predicción de la fecha de nacimiento
+            <input type="date" name="birthDateGuess" required />
+          </label>
+
+          <label>
+            Predicción del nombre del bebé (opcional)
+            <input type="text" name="nameGuess" />
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-wide">Enviar RSVP</button>
+        <p id="formStatus" class="status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section class="card hidden" id="confirmationSection">
+      <h2>Gracias por confirmar</h2>
+      <p id="confirmationText">No vemos la hora de celebrar contigo.</p>
+    </section>
+
+    <section class="card hidden" id="adminSection">
+      <div class="admin-header">
+        <h2>Panel de respuestas</h2>
+        <div class="admin-actions">
+          <button id="refreshBtn" class="btn btn-soft">Actualizar datos</button>
+          <a id="exportCsvLink" class="btn btn-soft" href="/api/export.csv">Exportar CSV</a>
+          <button id="logoutBtn" class="btn btn-soft" type="button">Cerrar sesión</button>
+        </div>
+      </div>
+      <p id="attendanceSummary" class="friendly-summary">Aun no tenemos respuestas.</p>
+
+      <div class="admin-metrics">
+        <article class="metric">
+          <h3>Respuestas totales</h3>
+          <p id="totalResponses">0</p>
+        </article>
+        <article class="metric">
+          <h3>Total de invitados asistentes</h3>
+          <p id="totalGuests">0</p>
+        </article>
+      </div>
+
+      <article class="card chart-card">
+        <h3>Predicciones: nino vs nina</h3>
+        <div id="predictionPie" class="pie" aria-label="Gráfico de predicciones"></div>
+        <p id="predictionLegend">Nino: 0 | Nina: 0</p>
+      </article>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Asistencia</th>
+              <th>Invitados</th>
+              <th>Predicción</th>
+              <th>Fecha de nacimiento estimada</th>
+              <th>Mensaje</th>
+            </tr>
+          </thead>
+          <tbody id="responsesBody">
+            <tr class="empty-row">
+              <td colspan="6">Aún no hay respuestas.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card hidden" id="adminLoginSection">
+      <h2>Acceso privado</h2>
+      <p>Ingresa tu clave para ver respuestas y exportaciones.</p>
+      <form id="adminLoginForm">
+        <label>
+          Contraseña de admin
+          <input type="password" name="adminPassword" required />
+        </label>
+        <button type="submit" class="btn btn-primary btn-wide">Entrar</button>
+        <p id="adminAuthStatus" class="status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+
+</html>

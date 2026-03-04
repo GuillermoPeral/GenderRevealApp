@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: gender-reveal-rsvp
+    runtime: node
+    plan: free
+    buildCommand: ""
+    startCommand: npm start
+    envVars:
+      - key: ADMIN_PASSWORD
+        sync: false
