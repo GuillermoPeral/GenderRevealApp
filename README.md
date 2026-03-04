@@ -7,6 +7,8 @@ Aplicación web simple de confirmación de asistencia con formulario para invita
 ```bash
 # Opcional: personaliza la contraseña de administración
 # export ADMIN_PASSWORD="tu-password-seguro"
+# Opcional local: forzar host local
+# export HOST="127.0.0.1"
 
 node server.js
 ```
